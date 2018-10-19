@@ -1,0 +1,5 @@
+---
+# tasks file for vmware-sync
+
+- debug:
+    msg: "teste"
