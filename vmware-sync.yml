@@ -1,4 +1,4 @@
 ---
 - hosts: all
   roles:
-  - { role: vmware-sync, become: yes }
+  - { role: vmware-sync }
