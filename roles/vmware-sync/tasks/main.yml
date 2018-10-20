@@ -36,12 +36,22 @@
       template: "{{ template_name }}"
       networks:
       - name: VM Network
+        ip: 192.168.1.123
+        netmask: 255.255.0.0
+        gateway: 192.168.0.2
+        domain: example.com
         dns_servers:
-        - "192.168.1.11"
-        type: dhcp
+        - 192.168.0.11
+        - 192.168.0.1
+      - name: VM Network
+        ip: 192.168.1.124
+        netmask: 255.255.0.0
+        gateway: 192.168.0.2
+        domain: example.com
+        dns_servers:
+        - 192.168.0.11
+        - 192.168.0.1        
       customization:
-        dns_servers:
-        - "192.168.1.11"
         runonce: 
         - hostnamectl set-hostname "{{ vm_name }}"-"{{ item.stdout }}"."{{ domain }}"
       wait_for_ip_address: yes
