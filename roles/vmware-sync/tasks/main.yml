@@ -1,5 +1,45 @@
 ---
 # tasks file for vmware-sync
 
-- debug:
-    msg: "teste"
+  - name: Generate  UUID
+    shell: openssl rand -hex 2
+    register: uuid_list
+    with_sequence: start=1 end="{{ count }}"
+  - name: create the VM
+    vmware_guest:
+      hostname: "{{ vcenter_ip }}"
+      username: "{{ vcenter_user }}"
+      password: "{{ vcenter_pass }}"
+      validate_certs: no
+      esxi_hostname: "{{ esx_host }}"
+      datacenter: "{{ vc_datacenter }}"
+      name: "{{ vm_name }}-{{ item.stdout }}"
+      state: poweredon
+      disk:
+      - size_gb: 50
+        type: thin
+        datastore: "{{ vc_datastore }}"
+      - size_gb: 50
+        type: thin
+        datastore: "{{ vc_datastore }}"
+      hardware:
+        memory_mb: "{{ vm_memory }}"
+        num_cpus: "{{ vm_cpu }}"
+      template: "{{ template_name }}"
+      networks:
+      - name: VM Network
+        dns_servers:
+        - "192.168.1.11"
+        type: dhcp
+      customization:
+        dns_servers:
+        - "192.168.1.11"
+        runonce: 
+        - hostnamectl set-hostname "{{ vm_name }}"-"{{ item.stdout }}"."{{ domain }}"
+      wait_for_ip_address: yes
+    delegate_to: localhost
+    register: deploy
+    with_items: "{{ uuid_list.results }}"
+
+  - name: Debugging instance info
+    debug: var=deploy.results[0]
