@@ -1,6 +1,4 @@
 ---
 - hosts: all
-  vars:
-    config_file: "{{ lookup('env', 'OS_CLIENT_CONFIG_FILE') }}"
   roles:
   - { role: vmware-sync }
