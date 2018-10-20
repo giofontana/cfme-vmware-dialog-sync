@@ -31,7 +31,7 @@
         type: thin
         datastore: "{{ vc_datastore }}"
       hardware:
-        memory_mb: "{{ vm_memory }}"
+        memory_mb: "{{ vm_memory * 1024 }}"
         num_cpus: "{{ vm_cpu }}"
       template: "{{ template_name }}"
       networks:
