@@ -36,6 +36,7 @@
       template: "{{ template_name }}"
       networks:
       - name: VM Network
+        type: static
         ip: 192.168.1.123
         netmask: 255.255.0.0
         gateway: 192.168.0.2
@@ -44,6 +45,7 @@
         - 192.168.0.11
         - 192.168.0.1
       - name: VM Network
+        type: static      
         ip: 192.168.1.124
         netmask: 255.255.0.0
         gateway: 192.168.0.2
