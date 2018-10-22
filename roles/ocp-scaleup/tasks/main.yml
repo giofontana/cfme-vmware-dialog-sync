@@ -13,6 +13,11 @@
     when: "'new_node' in group_names"      
 
   - name: Add node to cluster
+    command: sshpass -p {{ cf_ssh_pass }} ssh-copy-id -i /root/.ssh/id_rsa.pub -o StrictHostKeyChecking=no root@{{ groups['new_node'][0] }}
+    when: "'bastion' in group_names"
+    ignore_errors: True    
+
+  - name: Add node to cluster
     command: ansible-playbook  -i /etc/ansible/hosts /usr/share/ansible/openshift-ansible/playbooks/openshift-node/scaleup.yml
     when: "'bastion' in group_names"
     ignore_errors: True    
