@@ -13,6 +13,6 @@
     when: "'new_node' in group_names"      
 
   - name: Add node to cluster
-    command: ansible-playbook  -i /etc/ansible/hosts /usr/share/ansible/openshift-ansible/playbooks/byo/openshift-node/scaleup.yml
+    command: ansible-playbook  -i /etc/ansible/hosts /usr/share/ansible/openshift-ansible/playbooks/openshift-node/scaleup.yml
     when: "'bastion' in group_names"
     ignore_errors: True    
