@@ -13,7 +13,8 @@
       validate_certs: no
       esxi_hostname: "{{ esx_host }}"
       datacenter: "{{ vc_datacenter }}"
-      name: "{{ vm_name }}-{{ item.stdout }}"
+      #name: "{{ vm_name }}-{{ item.stdout }}"
+      name: "{{ vm_name }}"
       state: poweredon
 #      disk:
 #      - size_gb: 60
