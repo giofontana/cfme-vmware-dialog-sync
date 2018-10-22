@@ -3,13 +3,16 @@
 
   - name: Running docker-storage-setup
     command: docker-storage-setup    
+    when: "'new_node' in group_names"      
 
   - name: start and enable Docker
     service:
       name: docker
       state: restarted
       enabled: true
+    when: "'new_node' in group_names"      
 
   - name: Add node to cluster
     command: ansible-playbook  -i /etc/ansible/hosts /usr/share/ansible/openshift-ansible/playbooks/byo/openshift-node/scaleup.yml
-    ignore_errors: True
+    when: "'bastion' in group_names"
+    ignore_errors: True    

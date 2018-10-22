@@ -13,14 +13,14 @@
   roles:
     - {role: 'ocp-vmware'}
   tasks: 
-    - name: add master server to inventory
+    - name: add nodes to inventory
       add_host:
-        hostname: "{{ master1 }}"
+        hostname: "192.168.0.136"
         ansible_ssh_user: root
         ansible_ssh_pass: "{{ cf_ssh_pass }}"
-        groupname: master
+        groupname: bastion
 
-- hosts: master
+- hosts: bastion
   remote_user: root
 #  vars_files:
 #    - '../main.yml'
