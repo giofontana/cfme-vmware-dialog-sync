@@ -1,0 +1,3 @@
+---
+# vars file for vmware-sync
+config_file: "{{ lookup('env', 'OS_CLIENT_CONFIG_FILE') }}"

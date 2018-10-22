@@ -1,0 +1,15 @@
+---
+# tasks file for jritenour.vmware-cf-miq
+
+  - name: Running docker-storage-setup
+    command: docker-storage-setup    
+
+  - name: start and enable Docker
+    service:
+      name: docker
+      state: restarted
+      enabled: true
+
+  - name: Add node to cluster
+    command: ansible-playbook  -i /etc/ansible/hosts /usr/share/ansible/openshift-ansible/playbooks/byo/openshift-node/scaleup.yml
+    ignore_errors: True
